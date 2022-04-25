@@ -1,0 +1,28 @@
+<%- include("partials/header") -%>
+<%- include("partials/navbar") -%>
+
+<h1 class="text-center text-warning bg-dark">❤️ Daily Happiness ❤️</h1>
+
+<div class="border border-info border-5">
+    <img src="<%- imageURL -%>" alt="a cute dog picture" class="img-fluid mt-3 mb-3 mx-auto d-block">
+</div>
+
+<div class="text-center mt-3">
+    <button class="btn btn-success" onclick="window.location.reload()">MORE</button>
+    <button type="submit" id="save-btn" class="btn btn-primary">SAVE</button>
+</div>
+
+<script>
+    const img = "<%- imageURL -%>";
+    const getText = document.querySelector("#save-btn")
+    const body = JSON.stringify({imageURL: img})
+
+    getText.addEventListener('click', () => {
+        fetch('/favorites', { method: 'POST', headers: { "Content-Type": "application/json" }, body: body})
+        getText.disabled = true;
+        getText.textContent = 'DONE!'
+
+    })
+</script>
+
+<%- include('partials/footer') -%>
