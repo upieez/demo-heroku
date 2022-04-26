@@ -31,6 +31,10 @@ router
 		db.query(query, [email]).then((data) => {
 			const user = data.rows[0];
 
+			if (user.length === 0) {
+				res.redirect('/login');
+			}
+
 			if (user.password === hashPassword) {
 				const session = {
 					userId: user.id,
